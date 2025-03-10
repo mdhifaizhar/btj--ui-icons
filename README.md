@@ -2,7 +2,7 @@
 
 Available Icons
 
-- Material Design icons
+- Material Design Icons
 - Hero Icons
 - Bootstrap Icons
 - Eva Icons
