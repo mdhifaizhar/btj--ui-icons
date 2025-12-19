@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Icon Pack</title>
+</head>
+<body>
+    <div id="icon-container"></div>
+    <script type="module">
+        import mdiIcon from './mdi/index.js';
+        import heroIcon from './hero/index.js';
+        import evaIcon from './eva/index.js';
+        import bootstrapIcon from './bootstrap/index.js';
+
+        const icSourceList = {
+            'mdi': mdiIcon,
+            'hero': heroIcon,
+            'eva': evaIcon,
+            'bootstrap': bootstrapIcon
+        }
+        const icSource = 'eva';
+        const icVariant = 'outline';
+        const icName = 'home';
+        const icContainer = document.getElementById('icon-container');
+
+        async function loadIcon () {
+            let iconSelected = `<svg class="b-icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18,18H6V6H18M18,4H6A2,2 0 0,0 4,6V18A2,2 0 0,0 6,20H18A2,2 0 0,0 20,18V6C20,4.89 19.1,4 18,4Z"/></svg>`;
+
+            if (icSourceList[icSource].indexOf(icName) != -1) {
+                await fetch(`./${icSource}/${icVariant}/${icName}.svg?raw`)
+                    .then(async (res) => {
+                        if (res.ok) {
+                            iconSelected = await res.text();
+                        }
+                    });
+            }
+
+            icContainer.innerHTML = iconSelected;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadIcon();
+        })
+    </script>
+
+    <style>
+        body {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #icon-container {
+            width: 150px;
+            height: 150px;
+        }
+    </style>
+</body>
+</html>
